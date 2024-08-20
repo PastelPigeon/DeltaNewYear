@@ -1,0 +1,431 @@
+@font-face {
+  font-family: "fzb";
+  src: url("./assets/FZBitmap-GBK-11X12-2.ttf");
+}
+
+.app{
+  overflow: hidden;
+}
+
+.desktop .siteBackground{
+  background: url(./assets/site_background.png);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  filter: brightness(0.5);
+}
+
+.desktop .softwareGrid{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 25px;
+}
+
+.desktop .softwareGrid button{
+  background: transparent;
+  display: flex;
+  border: none;
+  flex-direction: column;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  color: #fff;
+  font-size: 14px;
+  font-family: "fzb";
+  backdrop-filter: brightness(1);
+}
+
+.desktop .softwareGrid button:disabled{
+  color: #e0e0e0;
+}
+
+
+.desktop .softwareGrid button:hover{
+  color: yellow;
+  backdrop-filter: brightness(0.8);
+}
+
+.desktop .softwareGrid button:disabled:hover{
+  color: #e0e0e0;
+  backdrop-filter: brightness(1);
+}
+
+.taskBar{
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  width: calc(100% - 16px);
+  height: 35px;
+  background: #656565;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: #c3c3c3 3px solid;
+}
+
+.taskBar .softwares{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.taskBar .softwares button{
+  padding: 10px;
+  background: transparent;
+  border: none;
+  backdrop-filter: brightness(1.0);
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+}
+
+.taskBar .softwares button:hover{
+  backdrop-filter: brightness(1.2);
+}
+
+.taskBarMenu{
+  position: absolute;
+  bottom: 73px;
+  left: 10px;
+  width: 270px;
+  height: 500px;
+  background: #c3c3c3;
+  border: #2c2c2c 3px solid;
+}
+
+.taskBarMenu .sideBar{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 50px;
+  background: linear-gradient(180deg, #000000 0%,#002fff 100%);
+  display: flex;
+  justify-content: center;
+}
+
+.taskBarMenu .sideBar .siteTitleImg{
+  position: absolute;
+  width: 230px;
+  height: 33px;
+  transform: rotate(90deg);
+  bottom: 120px;
+}
+
+.taskBarMenu .softwareList{
+  padding: 10px;
+  position: absolute;
+  top: 0px;
+  left: 50px;
+  width: calc(100% - 70px);
+  height: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+}
+
+.taskBarMenu .softwareList .listTitle{
+  color: #fff;
+  font-family: "fzb";
+  font-size: 14px;
+  margin: 15px;
+  margin-top: 10px;
+}
+
+.taskBarMenu .softwareList button{
+  height: 45px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-family: "fzb";
+  backdrop-filter: brightness(1);
+}
+
+.taskBarMenu .softwareList button:disabled{
+  color: #e0e0e0;
+}
+
+.taskBarMenu .softwareList button img{
+  width: 40px;
+  height: 40px;
+}
+
+.taskBarMenu .softwareList button:hover{
+  color: yellow;
+  backdrop-filter: brightness(0.8);
+}
+
+.taskBarMenu .softwareList button:disabled:hover{
+  color: #e0e0e0;
+  backdrop-filter: brightness(1);
+}
+
+.window{
+  background: #c3c3c3;
+  border: #000000 3px solid;
+}
+
+.window .titleBar{
+  position: absolute;
+  background: #656565;
+  width: calc(100% - 11px);
+  height: 30px;
+  top: 3px;
+  left: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 5px;
+  color: #fff;
+  font-size: 15px;
+  font-family: "fzb";
+}
+
+.window .titleBar .closeButton{
+  position: absolute;
+  right: 3px;
+  width: 24px;
+  height: 24px;
+  background: url(./assets/window_close.png);
+}
+
+.window .content{
+  position: absolute;
+  left: 3px;
+  top: 36px;
+  width: calc(100% - 12px);
+  height: calc(100% - 45px);
+  border: #2c2c2c solid 3px;
+}
+
+.worksList{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: calc(100% - 80px);
+  height: calc(100% - 60px);
+  margin: 40px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.worksList .topBar{
+  width: calc(100% - 20px);
+  height: 100px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.worksList .topBar .logo{
+  width: 230px;
+  height: 100px;
+}
+
+.worksList .topBar .queryBox{
+  position: absolute;
+  right: 7px;
+  padding: 5px;
+  padding-left: 5px;
+  color: #656565;
+  font-family: "fzb";
+  font-size: 14px;
+  outline: none;
+  border: #656565 solid 3px;
+  width: 200px;
+}
+
+.worksList .worksView{
+  position: relative;
+  top: 30px;
+  width: 100%;
+  height: calc(100% - 133px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+
+.worksList .worksView .workItem{
+  position: relative;
+  width: calc(100% - 20px);
+  height: 116px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+}
+
+.worksList .worksView .workItem:hover{
+  backdrop-filter: brightness(0.8);
+}
+
+.worksList .worksView .workItem:hover .textInfo .name{
+  color: yellow;
+}
+
+.worksList .worksView .workItem .thumbnail{
+  width: 207px;
+  height: 116px;
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+}
+
+.worksList .worksView .workItem .textInfo{
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 8px;
+}
+
+.worksList .worksView .workItem .textInfo .name{
+  color: white;
+  font-family: "fzb";
+  font-size: 18px;
+}
+
+.worksList .worksView .workItem .textInfo .description{
+  color: white;
+  font-family: "fzb";
+  font-size: 14px;
+  letter-spacing: 3px;
+}
+
+.worksList .worksView .workItem .authorInfo{
+  position: absolute;
+  right: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.worksList .worksView .workItem .authorInfo .name{
+  color: white;
+  font-family: "fzb";
+  font-size: 14px;
+}
+
+.worksList .worksView .workItem .authorInfo .avater{
+  width: 25px;
+  height: 25px;
+  background-repeat:no-repeat;
+	background-size:100% 100%;
+}
+
+.bookLive{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  overflow: hidden;
+}
+
+.bookLive .info{
+  color: white;
+  font-family: "fzb";
+  font-size: 15px;
+}
+
+.bookLive .funcButtons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bookLive .funcButtons button{
+  border: none;
+  background: transparent;
+  font-family: "fzb";
+  padding: 5px;
+}
+
+.bookLive .funcButtons button:hover{
+  backdrop-filter: brightness(0.8);
+  color: yellow;
+}
+
+.bookLive .funcButtons button.ok{
+  font-size: 20px;
+}
+
+.bookLive .funcButtons button.cancel{
+  font-size: 12px;
+}
+
+.bookLive .funcButtons button.ok:hover ~ .bigshot{
+  background: url(./assets//bigshot1997_happy.gif);
+}
+
+.bookLive .funcButtons button.cancel:hover ~ .bigshot{
+  background: url(./assets/bigshot1997_sad.png);
+}
+
+.bookLive .bigshot{
+  position: absolute;
+  background: url(./assets//bigshot1997_normal.png);
+  width: 75px;
+  height: 102px;
+  bottom: -20px;
+  right: -30px;
+}
+
+.about{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: calc(100% - 80px);
+  height: calc(100% - 60px);
+  margin: 40px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.about .logo{
+  width: 260px;
+  height: 130px;
+}
+
+.about b{
+  color: white;
+  font-family: "fzb";
+  font-size: 15px;
+}
+
+.about label{
+  color: white;
+  font-family: "fzb";
+  font-size: 14px;
+}
