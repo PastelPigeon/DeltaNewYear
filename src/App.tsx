@@ -5,6 +5,7 @@ import siteTitleVanilla from "./assets/site_title_vanilla.png"
 import softwareIcon from "./assets/software_icon.png"
 import worksListIcon from "./assets/software_worksList_icon.svg"
 import worksInfo from "./works/worksinfo.json"
+import dogSleep from "./assets/dog-sleep.gif"
 
 import './App.css'
 import Draggable from 'react-draggable';
@@ -143,23 +144,34 @@ function WorksList(){
       var filteredWorksData = worksData
     }
 
-    filteredWorksData.forEach((e) => {
+    console.log(filteredWorksData.length);
+
+    if (filteredWorksData.length != 0){
+      filteredWorksData.forEach((e) => {
+        worksViewTemp.push(
+          <div className='workItem'>
+            <div className='thumbnail' style={{background: `url(${e.thumbnail})`}}/>
+  
+            <div className='textInfo'>
+              <label className='name'>{e.name}</label>
+              <label className='description'>{e.description}</label>
+            </div>
+  
+            <div className='authorInfo'>
+              <label className='name'>{e.author.name}</label>
+              <div className='avater' style={{background: `url(${e.author.avater})`}}/>
+            </div>
+          </div>
+        )
+      })
+    } else {
       worksViewTemp.push(
-        <div className='workItem'>
-          <div className='thumbnail' style={{background: `url(${e.thumbnail})`}}/>
-
-          <div className='textInfo'>
-            <label className='name'>{e.name}</label>
-            <label className='description'>{e.description}</label>
-          </div>
-
-          <div className='authorInfo'>
-            <label className='name'>{e.author.name}</label>
-            <div className='avater' style={{background: `url(${e.author.avater})`}}/>
-          </div>
+        <div className='nothingInfo'>
+          <img src={dogSleep} width={108} height={48}/>
+          <label>e..这里还没有东西，你就没有其它事情可以干了吗</label>
         </div>
       )
-    })
+    }
 
     SetWorksView(worksViewTemp)
   }, [worksData, query])
@@ -272,7 +284,7 @@ function About(){
 
             <b style={{marginTop: 20}}>关于本网站</b>
             <label>开发者 B站 @辐卡RadTruck</label>
-            <label>原创贴图提供者 B站 @yanalsei @Jank000.h</label>
+            <label>原创贴图提供者 B站 @yanalsei @Jank000.h @狗与粽子_</label>
             <label>部分贴图来自Toby Fox 的 Deltarune</label>
 
             <b style={{marginTop: 20}}>加入我们</b>
@@ -290,6 +302,7 @@ function App() {
 
   return(
     <div className='app'>
+
       <activatedSoftwaresContext.Provider value={{activatedSoftwares, SetActivatedSoftwares}}>
         <Desktop/>
         <TaskBar/>
