@@ -10,6 +10,10 @@ import dogSleep from "./assets/dog-sleep.gif"
 import './App.css'
 import Draggable from 'react-draggable';
 
+if (/Mobi|Android|iPhone/i.test(navigator.userAgent)){
+  import("./App_mobile.css")
+}
+
 const activatedSoftwaresContext = createContext<string[]>([]);
 
 function Desktop(){
@@ -38,13 +42,13 @@ function Desktop(){
         }}><img src={softwareIcon}/> 预约拜年祭</button>
         <button disabled><img src={softwareIcon}/> 拜年祭直播</button>
         <button disabled><img src={softwareIcon}/> 直播回放</button>
-        <button><img src={softwareIcon} onClick={() => {
+        <button onClick={() => {
           if (!activatedSoftwares.includes("about")) {
             var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
             activatedSoftwaresTemp.push("about")
             SetActivatedSoftwares(activatedSoftwaresTemp)
           }
-        }}/> 关于拜年祭</button>
+        }}><img src={softwareIcon}/> 关于拜年祭</button>
       </div>
     </div>
   )
@@ -99,6 +103,7 @@ function TaskBar(){
                   var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
                   activatedSoftwaresTemp.push("worksList")
                   SetActivatedSoftwares(activatedSoftwaresTemp)
+                  SetTaskBarMenuVisibility(false)
                 }
               }}><img src={worksListIcon}/> 作品列表</button>
             <button disabled><img src={softwareIcon}/> 作品投票</button>
@@ -107,6 +112,7 @@ function TaskBar(){
                   var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
                   activatedSoftwaresTemp.push("bookLive")
                   SetActivatedSoftwares(activatedSoftwaresTemp)
+                  SetTaskBarMenuVisibility(false)
                 }
               }}><img src={softwareIcon}/> 预约拜年祭</button>
             <button disabled><img src={softwareIcon}/> 拜年祭直播</button>
@@ -116,6 +122,7 @@ function TaskBar(){
                   var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
                   activatedSoftwaresTemp.push("about")
                   SetActivatedSoftwares(activatedSoftwaresTemp)
+                  SetTaskBarMenuVisibility(false)
                 }
               }}><img src={softwareIcon}/> 关于拜年祭</button>
           </div>
@@ -177,36 +184,72 @@ function WorksList(){
   }, [worksData, query])
 
   return(
-    <Draggable handle='.titleBar'>
-      <div className='window' style={{width: 800, height: 600}}>
-        <div className='titleBar'>
-          作品列表
-          <button className='closeButton'  onClick={() => {
-            if (activatedSoftwares.includes("worksList")){
-              var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
-              activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
-                return e !== "worksList"
-              })
-              SetActivatedSoftwares(activatedSoftwaresTemp)
-            }
-          }}/>
-        </div>
-
-        <div className='content'>
-          <div className='worksList'>
-            <div className='topBar'>
-              <img src={siteTitle} className='logo'/>
-
-              <input className='queryBox' onChange={(e) => SetQuery(e.currentTarget.value)}/>
+    <>
+      {
+        (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) &&
+        <Draggable handle='.titleBar'>
+          <div className='window' style={{width: 800, height: 600}}>
+            <div className='titleBar'>
+              作品列表
+              <button className='closeButton'  onClick={() => {
+                if (activatedSoftwares.includes("worksList")){
+                  var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
+                  activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
+                    return e !== "worksList"
+                  })
+                  SetActivatedSoftwares(activatedSoftwaresTemp)
+                }
+              }}/>
             </div>
 
-            <div className='worksView'>
-              {worksView}
+            <div className='content'>
+              <div className='worksList'>
+                <div className='topBar'>
+                  <img src={siteTitle} className='logo'/>
+
+                  <input className='queryBox' onChange={(e) => SetQuery(e.currentTarget.value)}/>
+                </div>
+
+                <div className='worksView'>
+                  {worksView}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Draggable>
+      }
+      {
+        (document.body.clientWidth < 767) &&
+        <div className='window' style={{width: "calc(100% - 6px)", height: "calc(100% - 76px)"}}>
+          <div className='titleBar'>
+            作品列表
+            <button className='closeButton'  onClick={() => {
+              if (activatedSoftwares.includes("worksList")){
+                var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
+                activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
+                  return e !== "worksList"
+                })
+                SetActivatedSoftwares(activatedSoftwaresTemp)
+              }
+            }}/>
+          </div>
+
+          <div className='content'>
+            <div className='worksList'>
+              <div className='topBar'>
+                <img src={siteTitle} className='logo'/>
+
+                <input className='queryBox' onChange={(e) => SetQuery(e.currentTarget.value)}/>
+              </div>
+
+              <div className='worksView'>
+                {worksView}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Draggable>
+      }
+    </>
   )
 }
 
@@ -215,28 +258,14 @@ function BookLive(){
   const {activatedSoftwares, SetActivatedSoftwares} = useContext(activatedSoftwaresContext)
 
   return(
-    <Draggable handle='.titleBar'>
-      <div className='window' style={{width: 400, height: 200}}>
-        <div className='titleBar'>
-          预约拜年祭
-          <button className='closeButton' onClick={() => {
-            if (activatedSoftwares.includes("bookLive")){
-              var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
-              activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
-                return e !== "bookLive"
-              })
-              SetActivatedSoftwares(activatedSoftwaresTemp)
-            }
-          }}/>
-        </div>
-
-        <div className='content'>
-          <div className='bookLive'>
-            <label className='info'>现在订阅【【摆年寄】】， 即刻成为【链接已屏蔽】</label>
-
-            <div className='funcButtons'>
-              <button className='ok'>【好】</button>
-              <button className='cancel' onClick={() => {
+    <>
+      {
+        (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) &&
+        <Draggable handle='.titleBar'>
+          <div className='window' style={{width: 400, height: 200}}>
+            <div className='titleBar'>
+              预约拜年祭
+              <button className='closeButton' onClick={() => {
                 if (activatedSoftwares.includes("bookLive")){
                   var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
                   activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
@@ -244,14 +273,71 @@ function BookLive(){
                   })
                   SetActivatedSoftwares(activatedSoftwaresTemp)
                 }
-              }}>【不 克里丝 你不能这样做！】</button>
+              }}/>
+            </div>
 
-              <div className='bigshot'/>
+            <div className='content'>
+              <div className='bookLive'>
+                <label className='info'>现在订阅【【摆年寄】】， 即刻成为【链接已屏蔽】</label>
+
+                <div className='funcButtons'>
+                  <button className='ok'>【好】</button>
+                  <button className='cancel' onClick={() => {
+                    if (activatedSoftwares.includes("bookLive")){
+                      var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
+                      activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
+                        return e !== "bookLive"
+                      })
+                      SetActivatedSoftwares(activatedSoftwaresTemp)
+                    }
+                  }}>【不 克里丝 你不能这样做！】</button>
+
+                  <div className='bigshot'/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Draggable>
+      }
+      {
+        (document.body.clientWidth < 767) &&
+        <div className='window' style={{width: "calc(100% - 6px)", height: "calc(100% - 76px)"}}>
+          <div className='titleBar'>
+            预约拜年祭
+            <button className='closeButton' onClick={() => {
+              if (activatedSoftwares.includes("bookLive")){
+                var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
+                activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
+                  return e !== "bookLive"
+                })
+                SetActivatedSoftwares(activatedSoftwaresTemp)
+              }
+            }}/>
+          </div>
+
+          <div className='content'>
+            <div className='bookLive'>
+              <label className='info'>现在订阅【【摆年寄】】， 即刻成为【链接已屏蔽】</label>
+
+              <div className='funcButtons'>
+                <button className='ok'>【好】</button>
+                <button className='cancel' onClick={() => {
+                  if (activatedSoftwares.includes("bookLive")){
+                    var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
+                    activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
+                      return e !== "bookLive"
+                    })
+                    SetActivatedSoftwares(activatedSoftwaresTemp)
+                  }
+                }}>【不 克里丝 你不能这样做！】</button>
+
+                <div className='bigshot'/>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Draggable>
+      }
+    </>
   )
 }
 
@@ -259,40 +345,80 @@ function About(){
   const {activatedSoftwares, SetActivatedSoftwares} = useContext(activatedSoftwaresContext)
 
   return(
-    <Draggable handle='.titleBar'>
-      <div className='window' style={{width: 800, height: 600}}>
-        <div className='titleBar'>
-          关于拜年祭
-          <button className='closeButton' onClick={() => {
-            if (activatedSoftwares.includes("about")){
-              var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
-              activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
-                return e !== "about"
-              })
-              SetActivatedSoftwares(activatedSoftwaresTemp)
-            }
-          }}/>
-        </div>
-
-        <div className='content'>
-          <div className='about'>
-            <img src={siteTitle} className='logo'/>
-            <b>deltarune 2025拜年祭</b>
-
-            <b style={{marginTop: 20}}>关于拜年祭</b>
-            <label>组织者 B站 @一只Cross骨</label>
-
-            <b style={{marginTop: 20}}>关于本网站</b>
-            <label>开发者 B站 @辐卡RadTruck</label>
-            <label>原创贴图提供者 B站 @yanalsei @Jank000.h @狗与粽子_</label>
-            <label>部分贴图来自Toby Fox 的 Deltarune</label>
-
-            <b style={{marginTop: 20}}>加入我们</b>
-            <label>Q群 638836194</label>
+    <>
+      {
+        (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) &&
+        <Draggable handle='.titleBar'>
+          <div className='window' style={{width: 800, height: 600}}>
+            <div className='titleBar'>
+              关于拜年祭
+              <button className='closeButton' onClick={() => {
+                if (activatedSoftwares.includes("about")){
+                  var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
+                  activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
+                    return e !== "about"
+                  })
+                  SetActivatedSoftwares(activatedSoftwaresTemp)
+                }
+              }}/>
+            </div>
+    
+            <div className='content'>
+              <div className='about'>
+                <img src={siteTitle} className='logo'/>
+                <b>deltarune 2025拜年祭</b>
+    
+                <b style={{marginTop: 20}}>关于拜年祭</b>
+                <label>组织者 B站 @一只Cross骨</label>
+    
+                <b style={{marginTop: 20}}>关于本网站</b>
+                <label>开发者 B站 @辐卡RadTruck</label>
+                <label>原创贴图提供者 B站 @yanalsei @Jank000.h @狗与粽子_</label>
+                <label>部分贴图来自Toby Fox 的 Deltarune</label>
+    
+                <b style={{marginTop: 20}}>加入我们</b>
+                <label>Q群 638836194</label>
+              </div>
+            </div>
+          </div>
+        </Draggable>
+      }
+      {
+        (document.body.clientWidth < 767) &&
+        <div className='window' style={{width: "calc(100% - 6px)", height: "calc(100% - 76px)"}}>
+          <div className='titleBar'>
+            关于拜年祭
+            <button className='closeButton' onClick={() => {
+              if (activatedSoftwares.includes("about")){
+                var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
+                activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
+                  return e !== "about"
+                })
+                SetActivatedSoftwares(activatedSoftwaresTemp)
+              }
+            }}/>
+          </div>
+  
+          <div className='content'>
+            <div className='about'>
+              <img src={siteTitle} className='logo'/>
+              <b>deltarune 2025拜年祭</b>
+  
+              <b style={{marginTop: 20}}>关于拜年祭</b>
+              <label>组织者 B站 @一只Cross骨</label>
+  
+              <b style={{marginTop: 20}}>关于本网站</b>
+              <label>开发者 B站 @辐卡RadTruck</label>
+              <label>原创贴图提供者 B站 @yanalsei @Jank000.h @狗与粽子_</label>
+              <label>部分贴图来自Toby Fox 的 Deltarune</label>
+  
+              <b style={{marginTop: 20}}>加入我们</b>
+              <label>Q群 638836194</label>
+            </div>
           </div>
         </div>
-      </div>
-    </Draggable>
+      }
+    </>
   )
 }
 
