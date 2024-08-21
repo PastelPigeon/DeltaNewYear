@@ -6,6 +6,8 @@ import softwareIcon from "./assets/software_icon.png"
 import worksListIcon from "./assets/software_worksList_icon.svg"
 import worksInfo from "./works/worksinfo.json"
 import dogSleep from "./assets/dog-sleep.gif"
+import background1 from "./assets/site_background_1.png"
+import backgroundUnknown from "./assets/site_background_unknown.gif"
 
 import './App.css'
 import Draggable from 'react-draggable';
@@ -15,14 +17,16 @@ if (/Mobi|Android|iPhone/i.test(navigator.userAgent)){
 }
 
 const activatedSoftwaresContext = createContext<string[]>([]);
+const currentBackgroundContext = createContext(0);
 
 function Desktop(){
 
   const {activatedSoftwares, SetActivatedSoftwares} = useContext(activatedSoftwaresContext)
+  const {currentBackground, SetCurrentBackground} = useContext(currentBackgroundContext)
 
   return(
     <div className='desktop'>
-      <div className='siteBackground'/>
+      <img className='siteBackground' src={currentBackground == 0 ? background1 : backgroundUnknown}/>
 
       <div className='softwareGrid'>
         <button onClick={() => {
@@ -49,6 +53,13 @@ function Desktop(){
             SetActivatedSoftwares(activatedSoftwaresTemp)
           }
         }}><img src={softwareIcon}/> 关于拜年祭</button>
+        <button onClick={() => {
+          if (!activatedSoftwares.includes("settings")) {
+            var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
+            activatedSoftwaresTemp.push("settings")
+            SetActivatedSoftwares(activatedSoftwaresTemp)
+          }
+        }}><img src={softwareIcon}/> 设置</button>
       </div>
     </div>
   )
@@ -81,6 +92,12 @@ function TaskBar(){
           }
           {
             activatedSoftwares.includes("about") &&
+            <button>
+              <img src={softwareIcon} width={35} height={35}/>
+            </button>
+          }
+          {
+            activatedSoftwares.includes("settings") &&
             <button>
               <img src={softwareIcon} width={35} height={35}/>
             </button>
@@ -125,6 +142,14 @@ function TaskBar(){
                   SetTaskBarMenuVisibility(false)
                 }
               }}><img src={softwareIcon}/> 关于拜年祭</button>
+              <button onClick={() => {
+                if (!activatedSoftwares.includes("settings")) {
+                  var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
+                  activatedSoftwaresTemp.push("settings")
+                  SetActivatedSoftwares(activatedSoftwaresTemp)
+                  SetTaskBarMenuVisibility(false)
+                }
+              }}><img src={softwareIcon}/> 设置</button>
           </div>
         </div>
       }
@@ -219,7 +244,7 @@ function WorksList(){
         </Draggable>
       }
       {
-        (document.body.clientWidth < 767) &&
+        (/Mobi|Android|iPhone/i.test(navigator.userAgent)) &&
         <div className='window' style={{width: "calc(100% - 6px)", height: "calc(100% - 76px)"}}>
           <div className='titleBar'>
             作品列表
@@ -300,7 +325,7 @@ function BookLive(){
         </Draggable>
       }
       {
-        (document.body.clientWidth < 767) &&
+        (/Mobi|Android|iPhone/i.test(navigator.userAgent)) &&
         <div className='window' style={{width: "calc(100% - 6px)", height: "calc(100% - 76px)"}}>
           <div className='titleBar'>
             预约拜年祭
@@ -384,7 +409,7 @@ function About(){
         </Draggable>
       }
       {
-        (document.body.clientWidth < 767) &&
+        (/Mobi|Android|iPhone/i.test(navigator.userAgent)) &&
         <div className='window' style={{width: "calc(100% - 6px)", height: "calc(100% - 76px)"}}>
           <div className='titleBar'>
             关于拜年祭
@@ -422,28 +447,136 @@ function About(){
   )
 }
 
+function Settings(){
+
+  const {activatedSoftwares, SetActivatedSoftwares} = useContext(activatedSoftwaresContext)
+  const {currentBackground, SetCurrentBackground} = useContext(currentBackgroundContext)
+
+  return(
+    <>
+      {
+        (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) &&
+        <Draggable handle='.titleBar'>
+          <div className='window' style={{width: 800, height: 600}}>
+            <div className='titleBar'>
+              设置
+              <button className='closeButton' onClick={() => {
+                if (activatedSoftwares.includes("settings")){
+                  var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
+                  activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
+                    return e !== "settings"
+                  })
+                  SetActivatedSoftwares(activatedSoftwaresTemp)
+                }
+              }}/>
+            </div>
+    
+            <div className='content'>
+              <div className='settings'>
+                <label className='title'>设置</label>
+    
+                <label className='sectionTitle'>背景</label>
+    
+                <div className='backgroundOptions'>
+                  <button className='backgroundItem' onClick={() => SetCurrentBackground(0)}>
+                    <img className='backgroundImg' src={background1} />
+                    <label style={{color: currentBackground == 0 ? "yellow" : "white"}}>冬日小镇</label>
+                  </button>
+                  <button className='backgroundItem' disabled onClick={() => SetCurrentBackground(1)}>
+                    <img className='backgroundImg' src={backgroundUnknown} />
+                    <label style={{color: currentBackground == 1 ? "yellow" : "white"}}>将于2025年1月1日解锁</label>
+                  </button>
+                  <button className='backgroundItem' disabled onClick={() => SetCurrentBackground(2)}>
+                    <img className='backgroundImg' src={backgroundUnknown} />
+                    <label style={{color: currentBackground == 2 ? "yellow" : "white"}}>将于2025年1月X日解锁</label>
+                  </button>
+                  <button className='backgroundItem' disabled onClick={() => SetCurrentBackground(3)}>
+                    <img className='backgroundImg' src={backgroundUnknown} />
+                    <label style={{color: currentBackground == 3 ? "yellow" : "white"}}>将于2025年1月28日解锁</label>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Draggable> 
+      }
+      {
+        (/Mobi|Android|iPhone/i.test(navigator.userAgent)) &&
+        <div className='window' style={{width: "calc(100% - 6px)", height: "calc(100% - 76px)"}}>
+          <div className='titleBar'>
+            设置
+            <button className='closeButton' onClick={() => {
+              if (activatedSoftwares.includes("settings")){
+                var activatedSoftwaresTemp = JSON.parse(JSON.stringify(activatedSoftwares))
+                activatedSoftwaresTemp = activatedSoftwaresTemp.filter((e) => {
+                  return e !== "settings"
+                })
+                SetActivatedSoftwares(activatedSoftwaresTemp)
+              }
+            }}/>
+          </div>
+  
+          <div className='content'>
+            <div className='settings'>
+              <label className='title'>设置</label>
+  
+              <label className='sectionTitle'>背景</label>
+  
+              <div className='backgroundOptions'>
+                <button className='backgroundItem' onClick={() => SetCurrentBackground(0)}>
+                  <img className='backgroundImg' src={background1} />
+                  <label style={{color: currentBackground == 0 ? "yellow" : "white"}}>冬日小镇</label>
+                </button>
+                <button className='backgroundItem' disabled onClick={() => SetCurrentBackground(1)}>
+                  <img className='backgroundImg' src={backgroundUnknown} />
+                  <label style={{color: currentBackground == 1 ? "yellow" : "white"}}>将于2025年1月1日解锁</label>
+                </button>
+                <button className='backgroundItem' disabled onClick={() => SetCurrentBackground(2)}>
+                  <img className='backgroundImg' src={backgroundUnknown} />
+                  <label style={{color: currentBackground == 2 ? "yellow" : "white"}}>将于2025年1月X日解锁</label>
+                </button>
+                <button className='backgroundItem' disabled onClick={() => SetCurrentBackground(3)}>
+                  <img className='backgroundImg' src={backgroundUnknown} />
+                  <label style={{color: currentBackground == 3 ? "yellow" : "white"}}>将于2025年1月28日解锁</label>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </>
+  )
+}
+
 function App() {
 
   const [activatedSoftwares, SetActivatedSoftwares] = useState<string[]>([])
+  const [currentBackground, SetCurrentBackground] = useState(0)
 
   return(
     <div className='app'>
 
       <activatedSoftwaresContext.Provider value={{activatedSoftwares, SetActivatedSoftwares}}>
-        <Desktop/>
-        <TaskBar/>
-        {
-          activatedSoftwares.includes("worksList") &&
-          <WorksList/>
-        }
-        {
-          activatedSoftwares.includes("bookLive") &&
-          <BookLive/>
-        }
-        {
-          activatedSoftwares.includes("about") &&
-          <About/>
-        }
+        <currentBackgroundContext.Provider value={{currentBackground, SetCurrentBackground}}>
+          <Desktop/>
+          <TaskBar/>
+          {
+            activatedSoftwares.includes("worksList") &&
+            <WorksList/>
+          }
+          {
+            activatedSoftwares.includes("bookLive") &&
+            <BookLive/>
+          }
+          {
+            activatedSoftwares.includes("about") &&
+            <About/>
+          }
+          {
+            activatedSoftwares.includes("settings") &&
+            <Settings/>
+          }
+        </currentBackgroundContext.Provider>
       </activatedSoftwaresContext.Provider>
     </div>
   )

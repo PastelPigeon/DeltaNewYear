@@ -53,3 +53,11 @@
 	width: 100%;
 	height: calc(100% - 76px);
 }
+
+.settings{
+	align-items: center;
+}
+
+.settings .backgroundOptions{
+    flex-direction: column;
+}

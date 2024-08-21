@@ -13,13 +13,13 @@ body{
 }
 
 .desktop .siteBackground{
-  background: url(./assets/site_background.png);
   position: absolute;
   top: 0px;
   left: 0px;
   width: 100%;
   height: 100%;
   filter: brightness(0.5);
+  object-fit: cover;
 }
 
 .desktop .softwareGrid{
@@ -220,6 +220,8 @@ body{
   width: calc(100% - 12px);
   height: calc(100% - 45px);
   border: #2c2c2c solid 3px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .worksList{
@@ -450,19 +452,65 @@ body{
   font-size: 14px;
 }
 
-.loading{
+.settings{
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  z-index: 1000;
+  width: calc(100% - 80px);
+  height: calc(100% - 60px);
+  margin: 40px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+}
+
+.settings .title{
+  font-size: 25px;
   color: white;
   font-family:  "8bitOperatorPlus", "fzb";
+}
+
+.settings .sectionTitle{
   font-size: 15px;
+  color: white;
+  font-family:  "8bitOperatorPlus", "fzb";
+  margin-top: 25px;
+}
+
+.settings .backgroundOptions{
+  display: flex;
+  margin-top: 12px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.settings .backgroundOptions .backgroundItem{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: center;
+  background: transparent;
+  border: none;
+}
+
+.settings .backgroundOptions .backgroundItem:hover{
+  backdrop-filter: brightness(0.8);
+}
+
+.settings .backgroundOptions .backgroundItem:disabled:hover{
+  backdrop-filter: brightness(1);
+}
+
+.settings .backgroundOptions .backgroundItem .backgroundImg{
+  width: 200px;
+  height: 110px;
+}
+
+.settings .backgroundOptions .backgroundItem label{
+  font-size: 14px;
+  color: white;
+  font-family:  "8bitOperatorPlus", "fzb";
 }
