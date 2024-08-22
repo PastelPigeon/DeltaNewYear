@@ -64,6 +64,35 @@ body{
   backdrop-filter: brightness(1);
 }
 
+.desktop .countdown{
+  position: absolute;
+  bottom: 83px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.desktop .countdown .title{
+  font-size: 14px;
+  font-family:  "8bitOperatorPlus", "fzb";
+  backdrop-filter: brightness(1);
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.desktop .countdown .date{
+  font-size: 14px;
+  font-family:  "8bitOperatorPlus", "fzb";
+  color: #fff;
+}
+
+.desktop .countdown .time{
+  font-size: 25px;
+  font-family:  "8bitOperatorPlus", "fzb";
+  color: #fff;
+}
+
 .taskBar{
   position: absolute;
   bottom: 5px;
@@ -78,6 +107,14 @@ body{
   padding-bottom: 10px;
   border: #c3c3c3 3px solid;
   z-index: 999;
+}
+
+.taskBar .timeNow{
+  position: absolute;
+  right: 15px;
+  font-size: 15px;
+  color: white;
+  font-family:  "8bitOperatorPlus", "fzb";
 }
 
 .taskBar .softwares{

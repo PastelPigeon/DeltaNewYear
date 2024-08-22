@@ -24,6 +24,14 @@ function Desktop(){
   const {activatedSoftwares, SetActivatedSoftwares} = useContext(activatedSoftwaresContext)
   const {currentBackground, SetCurrentBackground} = useContext(currentBackgroundContext)
 
+  const [countdown, UpdateCountdown] = useState(["", ""])
+
+  setInterval(() => {
+    var dateDataNow = new Date()
+    var countdownData = new Date(new Date(2025, 1, 28, 19, 0, 0).getTime() - dateDataNow.getTime())
+    UpdateCountdown([`${countdownData.getMonth()}月, ${countdownData.getDay()}日`, `${countdownData.getHours()} : ${countdownData.getMinutes()} : ${countdownData.getSeconds()}`])
+  }, 1000);
+
   return(
     <div className='desktop'>
       <img className='siteBackground' src={currentBackground == 0 ? background1 : backgroundUnknown}/>
@@ -61,6 +69,12 @@ function Desktop(){
           }
         }}><img src={softwareIcon}/> 设置</button>
       </div>
+
+      <div className='countdown'>
+        <label className='title'>距离 DELTARUNE 2025 拜年祭还有</label>
+        <label className='date'>{countdown[0]}</label>
+        <label className='time'>{countdown[1]}</label>
+      </div>
     </div>
   )
 }
@@ -68,8 +82,14 @@ function Desktop(){
 function TaskBar(){
 
   const [isTaskBarMenuVisable, SetTaskBarMenuVisibility] = useState(false);
+  const [timeNow, UpdateTimeNow] = useState("");
 
   const {activatedSoftwares, SetActivatedSoftwares} = useContext(activatedSoftwaresContext)
+
+  setInterval(() => {
+    var dateData = new Date()
+    UpdateTimeNow(`${dateData.getHours()} : ${dateData.getMinutes()}`);
+  }, 1000)
 
   return(
     <>
@@ -103,6 +123,8 @@ function TaskBar(){
             </button>
           }
         </div>
+
+        <label className='timeNow'>{timeNow}</label>
       </div>
 
       {
