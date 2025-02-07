@@ -24,8 +24,8 @@
     "name": "softwareSettingsName",
     "icon": "/assets/gameIcon.png",
     "window":{
-      "width": 350,
-      "height": 600,
+      "width": 800,
+      "height": 639,
       "allowMaximize": false
     }
   },
@@ -35,7 +35,7 @@
     "icon": "/assets/gameIcon.png",
     "window":{
       "width": 800,
-      "height": 600,
+      "height": 639,
       "allowMaximize": true
     }
   },

@@ -48,8 +48,12 @@ function Window(props: {softwareID: number}){
             <WebBrowser/>
           }
           {
+            props.softwareID == 2 &&
+            <img src={new URL("/assets/waring.png", import.meta.url).href}/>
+          }
+          {
             props.softwareID == 3 &&
-            <MediaPlayer/>
+            <img src={new URL("/assets/waring.png", import.meta.url).href}/>
           }
           {
             props.softwareID == 4 &&
