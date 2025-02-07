@@ -49,7 +49,12 @@ function Window(props: {softwareID: number}){
           }
           {
             props.softwareID == 2 &&
-            <img src={new URL("/assets/waring.png", import.meta.url).href}/>
+            <div className='settings'>
+              <label>欢迎回来，登录<a href='https://www.bilibili.com/video/BV1GJ411x7h7/?share_source=copy_web&vd_source=6ebb218133f66394131324163333c000'>ADMIN</a>账号以继续使用设置</label>
+              <input placeholder='admin'/>
+              <input placeholder='密码'/>
+              <label><a href='https://www.bilibili.com/video/BV1Zv4y1v7a8/?share_source=copy_web&vd_source=6ebb218133f66394131324163333c000'>登录</a></label>
+            </div>
           }
           {
             props.softwareID == 3 &&
