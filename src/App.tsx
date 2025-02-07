@@ -122,7 +122,7 @@ function Desktop(){
           softwaresInfo.map((software) => {
             return(
               <button data-style="transparent" className='softwareItem' onClick={() => {setActiveWindows([...activeWindows, software.softwareID])}}>
-                <img src={new URL(softwaresInfo.filter((e) => {return e.softwareID == software.softwareID})[0].icon, import.meta.url).href} className='icon'/>
+                <img src={new URL("/assets/gameIcon.png", import.meta.url).href} className='icon'/>
                 <label className='name'>{getLocaleValue(softwaresInfo.filter((e) => {return e.softwareID == software.softwareID})[0].name)}</label>
               </button>
             )
