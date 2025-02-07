@@ -2,7 +2,6 @@ import { useState } from "react"
 import "./DeltaFuns.css"
 import announcements from "./announcements.json"
 import testPosts from "./test-posts.json"
-import GitalkComponent from "gitalk/dist/gitalk-component";
 
 export default function DeltaFuns(){
   const [announcementCount, setAnnouncementCount] = useState<number>(0)

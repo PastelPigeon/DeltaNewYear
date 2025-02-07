@@ -2,7 +2,7 @@
   {
     "softwareID": 0,
     "name": "softwareDeltaruneGameName",
-    "icon": "./assets/software-icons/gameIcon.png",
+    "icon": "/assets/gameIcon.png",
     "window":{
       "width": 652,
       "height": 525,
@@ -12,7 +12,7 @@
   {
     "softwareID": 1,
     "name": "softwareWebBrowserName",
-    "icon": "./assets/software-icons/gameIcon.png",
+    "icon": "/assets/gameIcon.png",
     "window":{
       "width": 800,
       "height": 600,
@@ -22,7 +22,7 @@
   {
     "softwareID": 2,
     "name": "softwareSettingsName",
-    "icon": "./assets/software-icons/gameIcon.png",
+    "icon": "/assets/gameIcon.png",
     "window":{
       "width": 350,
       "height": 600,
@@ -32,7 +32,7 @@
   {
     "softwareID": 3,
     "name": "softwareMediaPlayerName",
-    "icon": "./assets/software-icons/gameIcon.png",
+    "icon": "/assets/gameIcon.png",
     "window":{
       "width": 800,
       "height": 600,
@@ -42,7 +42,7 @@
   {
     "softwareID": 4,
     "name": "softwareDeltaFunsName",
-    "icon": "./assets/software-icons/gameIcon.png",
+    "icon": "/assets/gameIcon.png",
     "window":{
       "width": 800,
       "height": 600,
